@@ -14,10 +14,11 @@ def q_sort array,left,right
     start,last = left,right-2
     while true
         start = start + 1 while array[start] < povit
-        last  = last  - 1 while array[last]  > povit
-        if start < last then array[start], array[last] = array[last],array[start]
-        else break
-        end
+        last  = last  - 1 while array[last]  > povit && last > start
+	break if start >= last
+        array[start], array[last] = array[last],array[start]
+	if array[start] == povit then last = last-1
+	else start = start+1 end
     end
 
     array[start],array[right-1] = array[right-1] , array[start]
@@ -25,10 +26,3 @@ def q_sort array,left,right
     q_sort array,left,start-1
     q_sort array,start+1,right
 end
-
-test_array = Array.new
-0.upto(15).each {|x| test_array.push Random.rand(0..100)}
-p test_array
-q_sort test_array,0,test_array.length-1
-p test_array
-
